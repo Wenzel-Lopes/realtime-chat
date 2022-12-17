@@ -28,17 +28,3 @@ app.get('/', (req, res) => {
     
 })
 
-//Entregar uma porta
-const DB_USER = process.env.DB_USER
-const DB_PASSWORD = encodeURIComponent(process.env.DB_PASSWORD)
-
-// entregar uma porta
-mongoose.connect(
-    //mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.cxipbvz.mongodb.net/realtimechat?retryWrites=true&w=majority
-    `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.cxipbvz.mongodb.net/realtimechat?retryWrites=true&w=majority`
-    )
-    .then(() => {
-        console.log('Conectamos ao MongoDB!')
-        app.listen(3000)
-    })
-    .catch((err) => console.log(err))
