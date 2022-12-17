@@ -1,0 +1,30 @@
+{
+  "name": "ezops-test-wenzel",
+  "version": "1.0.0",
+  "description": "Realtime chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon .index.js localhost 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wenzel-Lopes/ezops-test-wenzel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wenzel-Lopes/ezops-test-wenzel/issues"
+  },
+  "homepage": "https://github.com/Wenzel-Lopes/ezops-test-wenzel#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "mongodb": "^4.12.1",
+    "mongoose": "^5.2.8",
+    "mongose": "^0.0.2-security",
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4"
+  }
+}
