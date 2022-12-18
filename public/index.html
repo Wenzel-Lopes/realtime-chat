@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,50 +12,41 @@
 
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <form method="POST" action="">
-        <input type="text" name="username" placeholder="Digite seu usuário">
-        <div class="messages"></div>
-        <input type="text" name="message" placeholder="Digite sua mensagem">
-        <button type="submit">Enviar</button>
-    </form>
 
+    <input id="username" class="form-control" placeholder="Digite seu usuário">
+    <!-- <div class="messages"></div> -->
+    <input id="message" class="form-control" placeholder="Digite sua mensagem">
+    <div class="messages-box" id="messages"></div>
+    <button id="send" class="btn btn-success">Send</button>
 
-    <script type="text/javascript">
-        var socket = io('http://localhost:3000/');
-         
+    <script>
+        var socket = io();
+        $(() => {
+            $("#send").click(() => {
+                sendMessage({ username: $("#username").val(), message: $("#message").val() });
+            })
 
-        function renderMessage(message) {
-            $('.messages').append('<div class="message"><strong>'+ message.author +'</strong>: '+ message.message +'</div>');
+            getMessages()
+        })
+
+        socket.on('message', addMessages)
+
+        function addMessages(message) {
+            $("#messages").append(`<h4> ${message.username} </h4> <p> ${message.message} </p>`)
         }
 
-        socket.on('previousMessages', function(messages) {
-            for (message of messages) {
-                renderMessage(message);
-            }
-        });
+        function getMessages() {
+            $.get('http://localhost:3000/chat', (data) => {
+                data.forEach(addMessages);
+            })
+        }
 
-        socket.on('receivedMessage', function(message) {
-            renderMessage(message);
-        });
-
-        $('#chat').submit(function(event) {
-            event.preventDefault();
-
-            var author = $('input[name=username]').val();
-            var message = $('input[name=message]').val();
-
-            if (author.length && message.length) {
-                var messageObject = {
-                    author: author,
-                    message: message,
-                };
-
-                renderMessage(messageObject);
-
-                socket.emit('sendMessage', messageObject);
-            }
-        });
+        function sendMessage(message) {
+            $.post('http://localhost:3000/chat', message)
+        }
     </script>
 </body>
+
 </html>
