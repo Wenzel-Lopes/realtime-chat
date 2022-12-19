@@ -46,6 +46,9 @@ html, body {
 
   .messages-box {
     overflow-y: scroll;
-    width: 100%;
+    width: 600px;
     height: 400px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    padding: 20px;
   }
