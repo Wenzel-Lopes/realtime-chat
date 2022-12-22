@@ -12,13 +12,13 @@ phases:
     commands:
       - echo build start on `date`
       - echo building the docker image...
-      - docker image build -t wenzellopes/docker-chat-final .
+      - docker image build -t docker-chat-final:latest .
       - docker tag docker-chat-final:latest wenzellopes/docker-chat-final
 
   post_build:
     commands:
       - echo Build completed on `date`
-      - eco Pushing the Docker image...
+      - echo Pushing the Docker image...
       - docker push wenzellopes/docker-chat-final:tagname
 
 
