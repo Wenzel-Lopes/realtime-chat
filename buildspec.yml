@@ -21,7 +21,5 @@ phases:
       - echo Pushing the Docker image...
       - docker push wenzellopes/docker-chat-final:latest
 
-  artifacts:
-  files:
-    - '**/*'
+
     
