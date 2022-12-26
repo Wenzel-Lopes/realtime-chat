@@ -24,7 +24,5 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: SourceArti/*
-  name: realtime-chat-deploy-group
-  discard-paths: no
+    
     
