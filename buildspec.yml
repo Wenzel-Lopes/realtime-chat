@@ -21,5 +21,10 @@ phases:
       - echo Pushing the Docker image...
       - docker push wenzellopes/docker-chat-final:latest
 
-
+  artifacts:
+    files:
+      - '**/*'
+    base-directory: base_dir
+    name: realtime-chat-deploy-group
+    discard-paths: no
     
