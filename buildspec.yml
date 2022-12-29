@@ -13,13 +13,13 @@ phases:
       - echo build start on `date`
       - echo building the docker image...
       - docker image build -t docker-chat-final:latest .
-      - docker tag docker-chat-final:latest wenzellopes/docker-chat-final
+      - docker tag docker-chat-final:latest wenzellopes/docker-chat
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push wenzellopes/docker-chat-final:latest
+      - docker push wenzellopes/docker-chat:latest
 
 artifacts:
   files:
