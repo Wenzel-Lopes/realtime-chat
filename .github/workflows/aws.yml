@@ -5,10 +5,8 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
     - name: Checkout
@@ -22,15 +20,27 @@ jobs:
         docker image build -t docker-chat-final:latest .
         docker tag docker-chat-final:latest wenzellopes/docker-chat
         docker push wenzellopes/docker-chat:latest
-        
-    - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.HOST_DNS }}
-        username: ${{ secrets.USERNAME_EC2 }}
-        key: ${{ secrets.PEM }}
-        port: ${{ secrets.PORT }}
-        script:
+  
+  deploy:
+
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+
+      - name: Deploy in EC2
+        uses: appleboy/ssh-action@v0.1.6
+        env:
+          PRIVATE_KEY: ${{ secrets.PEM  }}
+          HOSTNAME : ${{ secrets.HOST_DNS  }}
+          USER_NAME : ${{ secrets.USER_EC2  }}
+
+        run:
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          
           docker login -u wenzellopes -p Darth@31101998
           docker pull wenzellopes/docker-chat
           docker stop gifted_khorana
