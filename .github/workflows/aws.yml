@@ -7,20 +7,16 @@ on:
 jobs:
   build and deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-      
-    - name: Docker Login
-      run:
-        docker login -u wenzellopes -p Darth@31101998
-
-    - name: Docker Push
-      run:
-        docker image build -t docker-chat-final:latest .
-        docker tag docker-chat-final:latest wenzellopes/docker-chat
-        docker push wenzellopes/docker-chat:latest
-  
+      - uses: actions/checkout@v3  
+      - name: Docker Login
+        run:
+          docker login -u wenzellopes -p Darth@31101998
+      - name: Docker Push
+        run:
+          docker image build -t docker-chat-final:latest .
+          docker tag docker-chat-final:latest wenzellopes/docker-chat
+          docker push wenzellopes/docker-chat:latest  
       - name: Deploy in EC2
         env:
           PRIVATE_KEY: ${{ secrets.PEM  }}
