@@ -1,28 +1,28 @@
 # Do not change version. This is the version of aws buildspec, not the version of your buldspec file.
-version: 0.2
+#version: 0.2
 
-phases:
-  pre_build:
-    commands:
-      - echo skipped on `date`
-      - echo Logging in to Docker Hub...
-      - docker login -u wenzellopes -p Darth@31101998
+#phases:
+#  pre_build:
+#    commands:
+#      - echo skipped on `date`
+#      - echo Logging in to Docker Hub...
+#      - docker login -u wenzellopes -p Darth@31101998
 
-  build:
-    commands:
-      - echo build start on `date`
-      - echo building the docker image...
-      - docker image build -t docker-chat-final:latest .
-      - docker tag docker-chat-final:latest wenzellopes/docker-chat
+#  build:
+#    commands:
+#      - echo build start on `date`
+#      - echo building the docker image...
+#      - docker image build -t docker-chat-final:latest .
+#      - docker tag docker-chat-final:latest wenzellopes/docker-chat
 
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - docker push wenzellopes/docker-chat:latest
+#  post_build:
+#    commands:
+#      - echo Build completed on `date`
+ #     - echo Pushing the Docker image...
+#      - docker push wenzellopes/docker-chat:latest
 
-artifacts:
-  files:
-    - '**/*'
+#artifacts:
+#  files:
+#    - '**/*'
     
     
