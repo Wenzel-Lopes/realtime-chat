@@ -17,11 +17,14 @@ jobs:
           docker image build -t docker-chat-final:latest .
           docker tag docker-chat-final:latest wenzellopes/docker-chat
           docker push wenzellopes/docker-chat:latest  
-      - name: Deploy in EC2
+      - name: Connect with EC2
+        uses: easingthemes/ssh-deploy@main
         env:
-          PRIVATE_KEY: ${{ secrets.PEM  }}
-          HOSTNAME : ${{ secrets.HOST_DNS  }}
-          USER_NAME : ${{ secrets.USER_EC2  }}
+          SSH_PRIVATE_KEY: ${{secrets.PEM}}
+          REMOTE_HOST: ${{secrets.HOST_DNS}}
+          REMOTE_USER: ${{secrets.USERNAME_EC2}}
+
+      - name: Deploy in EC2
         run: |          
           docker login -u wenzellopes -p Darth@31101998
           docker pull wenzellopes/docker-chat
