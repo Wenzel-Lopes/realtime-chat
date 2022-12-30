@@ -30,5 +30,12 @@ jobs:
         REMOTE_HOST: ${{ secrets.HOST_DNS }}
         REMOTE_USER: ${{ secrets.USERNAME_EC2 }}
         TARGET: ${{ secrets.TARGET_DIR }}
+      scripts:
+        docker login -u wenzellopes -p Darth@31101998
+        docker pull wenzellopes/docker-chat
+        docker stop gifted_khorana
+        docker run -d -p 3000:3000 wenzellopes/docker-chat
+
+
 
    
