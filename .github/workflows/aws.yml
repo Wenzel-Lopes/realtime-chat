@@ -2,7 +2,7 @@ name: Deploy to Amazon EC2
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "master" ]
 
 jobs:
   deploy:
@@ -23,6 +23,12 @@ jobs:
         docker tag docker-chat-final:latest wenzellopes/docker-chat
         docker push wenzellopes/docker-chat:latest
         
-
+    - name: Deploy to Staging server
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.PEM }}
+        REMOTE_HOST: ${{ secrets.HOST_DNS }}
+        REMOTE_USER: ${{ secrets.USERNAME_EC2 }}
+        TARGET: ${{ secrets.TARGET_DIR }}
 
    
