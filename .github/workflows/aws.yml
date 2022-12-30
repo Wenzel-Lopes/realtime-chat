@@ -13,7 +13,7 @@ jobs:
         run:
           docker login -u wenzellopes -p Darth@31101998
       - name: Docker Push
-        run:
+        run: |
           docker image build -t docker-chat-final:latest .
           docker tag docker-chat-final:latest wenzellopes/docker-chat
           docker push wenzellopes/docker-chat:latest  
@@ -22,7 +22,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PEM  }}
           HOSTNAME : ${{ secrets.HOST_DNS  }}
           USER_NAME : ${{ secrets.USER_EC2  }}
-        run:
+        run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
           
