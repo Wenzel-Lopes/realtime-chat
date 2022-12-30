@@ -2,7 +2,7 @@ name: Deploy to Amazon EC2
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "develop" ]
 
 jobs:
   deploy:
@@ -23,12 +23,17 @@ jobs:
         docker tag docker-chat-final:latest wenzellopes/docker-chat
         docker push wenzellopes/docker-chat:latest
         
-    - name: Deploy to Staging server
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.PEM }}
-        REMOTE_HOST: ${{ secrets.HOST_DNS }}
-        REMOTE_USER: ${{ secrets.USERNAME_EC2 }}
-        TARGET: ${{ secrets.TARGET_DIR }}
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.HOST_DNS }}
+        username: ${{ secrets.USERNAME_EC2 }}
+        key: ${{ secrets.PEM }}
+        port: ${{ secrets.PORT }}
+        script:
+          docker login -u wenzellopes -p Darth@31101998
+          docker pull wenzellopes/docker-chat
+          docker stop gifted_khorana
+          docker run -d -p 3000:3000 wenzellopes/docker-chat
 
    
