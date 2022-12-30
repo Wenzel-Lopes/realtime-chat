@@ -31,7 +31,6 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Deploy in EC2
-        uses: appleboy/ssh-action@v0.1.6
         env:
           PRIVATE_KEY: ${{ secrets.PEM  }}
           HOSTNAME : ${{ secrets.HOST_DNS  }}
