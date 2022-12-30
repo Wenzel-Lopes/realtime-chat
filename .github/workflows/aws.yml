@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3  
       - name: Docker Login
@@ -17,13 +17,6 @@ jobs:
           docker image build -t docker-chat-final:latest .
           docker tag docker-chat-final:latest wenzellopes/docker-chat
           docker push wenzellopes/docker-chat:latest  
-      - name: Connect with EC2
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.PEM}}
-          REMOTE_HOST: ${{secrets.HOST_DNS}}
-          REMOTE_USER: ${{secrets.USERNAME_EC2}}
-
       - name: Deploy in EC2
         run: |          
           docker login -u wenzellopes -p Darth@31101998
