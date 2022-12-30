@@ -21,7 +21,7 @@ jobs:
         run: |          
           docker login -u wenzellopes -p Darth@31101998
           docker pull wenzellopes/docker-chat
-          docker stop romantic_kirch
+          docker stop gifted_yalow
           docker run -d -p 3000:3000 wenzellopes/docker-chat
 
 
