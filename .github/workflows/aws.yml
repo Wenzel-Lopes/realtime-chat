@@ -22,10 +22,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PEM  }}
           HOSTNAME : ${{ secrets.HOST_DNS  }}
           USER_NAME : ${{ secrets.USER_EC2  }}
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          
+        run: |          
           docker login -u wenzellopes -p Darth@31101998
           docker pull wenzellopes/docker-chat
           docker stop gifted_khorana
