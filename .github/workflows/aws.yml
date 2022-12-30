@@ -23,22 +23,6 @@ jobs:
         docker tag docker-chat-final:latest wenzellopes/docker-chat
         docker push wenzellopes/docker-chat:latest
         
-<<<<<<< HEAD
-    - name: Deploy to Staging server
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.PEM }}
-        REMOTE_HOST: ${{ secrets.HOST_DNS }}
-        REMOTE_USER: ${{ secrets.USERNAME_EC2 }}
-        TARGET: ${{ secrets.TARGET_DIR }}
-      scripts:
-        docker login -u wenzellopes -p Darth@31101998
-        docker pull wenzellopes/docker-chat
-        docker stop gifted_khorana
-        docker run -d -p 3000:3000 wenzellopes/docker-chat
-
-
-=======
     - name: executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@v0.1.6
       with:
@@ -51,6 +35,7 @@ jobs:
           docker pull wenzellopes/docker-chat
           docker stop gifted_khorana
           docker run -d -p 3000:3000 wenzellopes/docker-chat
->>>>>>> 7ff7cd60ebc3ab747198e9c0e05df89debbc7835
+
+
 
    
