@@ -1,0 +1,28 @@
+name: Deploy to Amazon EC2
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Docker Login
+      run:
+        docker login -u wenzellopes -p Darth@31101998
+    - name: Docker Push
+      run:
+        docker image build -t docker-chat-final:latest .
+        docker tag docker-chat-final:latest wenzellopes/docker-chat
+        docker push wenzellopes/docker-chat:latest
+        
+
+
+   
